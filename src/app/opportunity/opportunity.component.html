@@ -118,15 +118,15 @@
       <div class="col-xs-6">
         <div class="row">
           <p><strong class="gray-text">VISA TYPE</strong></p>
-          <p>{{opportunityDetails?.legal_info?.visa_type ? opportunityDetails?.legal_info?.visa_type : 'N/A'}}</p>
+          <p>{{opportunityDetails['legal_info']['visa_type'] ? opportunityDetails['legal_info']['visa_type'] : 'N/A'}}</p>
         </div>
         <div class="row">
           <p><strong class="gray-text">VISA DURATION</strong></p>
-          <p>{{opportunityDetails?.legal_info?.visa_duration ? opportunityDetails?.legal_info?.visa_duration : 'N/A'}}</p>
+          <p>{{opportunityDetails['legal_info']['visa_duration'] ? opportunityDetails['legal_info']['visa_duration'] : 'N/A'}}</p>
         </div>
         <div class="row">
           <p><strong class="gray-text">VISA LINK</strong></p>
-          <p>{{opportunityDetails?.legal_info?.visa_link ? opportunityDetails?.legal_info?.visa_link : 'N/A'}}</p>
+          <p>{{opportunityDetails['legal_info']['visa_link'] ? opportunityDetails['legal_info']['visa_link'] : 'N/A'}}</p>
         </div>
         <div class="row">
           <hr>
@@ -134,11 +134,11 @@
       </div>
     </div>
 
-    <div class="row" *ngIf="opportunityDetails?.legal_info?.health_insurance_info">
+    <div class="row" *ngIf="opportunityDetails['legal_info']['health_insurance_info']">
       <div class="col-xs-2"><strong>Health Insurance</strong></div>
       <div class="col-xs-6">
         <div class="row">
-          <p>{{opportunityDetails?.legal_info?.health_insurance_info}}</p>
+          <p>{{opportunityDetails['legal_info']['health_insurance_info']}}</p>
         </div>
         <div class="row">
           <hr>
