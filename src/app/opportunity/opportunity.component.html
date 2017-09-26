@@ -1,10 +1,10 @@
 <!-- Background Image block -->
 <div class="background-image-block z-depth-1" id="background-image-dynamic">
   <div class="row" contenteditable="true">
-    <h1><strong>{{opportunityDetails?.title}}</strong></h1>
+    <h1><strong>{{opportunityDetails['title']}}</strong></h1>
   </div>
   <div class="row">
-    <h3><i class="fa fa-map-marker" aria-hidden="true"></i> {{opportunityDetails?.location ? opportunityDetails?.location : 'Not
+    <h3><i class="fa fa-map-marker" aria-hidden="true"></i> {{opportunityDetails['location'] ? opportunityDetails['location'] : 'Not
       available'}}</h3>
   </div>
 </div>
@@ -15,15 +15,15 @@
   </div>
   <div class="details-block">
     <h4>Sustainable development goal</h4>
-    <div *ngIf="opportunityDetails?.sdg_info?.sdg_target?.description">
+    <div *ngIf="opportunityDetails['sdg_info']['sdg_target']['description']">
       <h4>Quality Education</h4>
       <div class="row">
-        <p class="col-xs-8">{{opportunityDetails?.sdg_info?.sdg_target?.description}}</p>
+        <p class="col-xs-8">{{opportunityDetails['sdg_info']['sdg_target']['description']}}</p>
       </div>
     </div>
     <h4>Role description</h4>
     <div class="row">
-      <p class="col-xs-8">{{opportunityDetails?.description}}</p>
+      <p class="col-xs-8">{{opportunityDetails['description']}}</p>
     </div>
 
     <h4>Main activities</h4>
