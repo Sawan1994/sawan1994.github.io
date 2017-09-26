@@ -1,0 +1,87 @@
+.background-image-block{
+  background-image: url("https://cdn-expa.aiesec.org/gis-img/gv_default.png");
+  height: 53vh;
+  width: 100%;
+  background-repeat: none;
+  background-position: center;
+  background-size: cover;
+  color: white;
+  text-align: center;
+  background-color: gray;
+  background-blend-mode: darken;
+  padding-top: 15vh;
+}
+hr{
+  border-color: #cbcbcb;
+}
+.border-bottom{
+  border-bottom: 1px solid #cbcbcb;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+.editable-elem{
+  border: 0.5px solid gray;
+  padding: 2px;
+}
+.non-editable-elem{
+  border: none;
+  padding: 0;
+}
+.dropdown-menu{
+  cursor: pointer;
+}
+.gray-text{
+  color: #9b9b9b;
+}
+
+.z-depth-1{
+  box-shadow:0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+}
+.z-depth-2{
+  box-shadow:0 8px 17px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,.19);
+}
+.z-depth-one-half{
+  box-shadow: 0 5px 11px 0 rgba(0,0,0,.18), 0 4px 15px 0 rgba(0,0,0,.15);
+}
+.main-margin-top{
+  margin-top: -47px;
+  margin-bottom: 80px;
+  z-index: 1000;
+  background-color: white;
+  padding-top: 16px;
+}
+.row-margin{
+  margin-left: 0;
+  margin-right: 0;
+}
+.header-background{
+  background-color: darkcyan;
+  padding-left: 20px;
+  padding-right: 20px;
+  color: floralwhite;
+}
+.details-block{
+  padding: 20px !important;
+}
+.footer-block{
+  background-color: teal;
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  height: 60px;
+  padding-top: 10px;
+}
+.btn-custom{
+  background-color: #062f4f;
+  border-color: #062f4f;
+  color: white;
+}
+.btn-custom:hover{
+  box-shadow:0 8px 17px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,.19);
+}
+.margin-label{
+  margin-left: 5px;
+}
+.hover-del{
+  cursor: pointer;
+}

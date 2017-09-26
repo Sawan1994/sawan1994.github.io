@@ -1,0 +1,152 @@
+<!-- Background Image block -->
+<div class="background-image-block z-depth-1" id="background-image-dynamic">
+  <div class="row" contenteditable="true">
+    <h1><strong>{{opportunityDetails?.title}}</strong></h1>
+  </div>
+  <div class="row">
+    <h3><i class="fa fa-map-marker" aria-hidden="true"></i> {{opportunityDetails?.location ? opportunityDetails?.location : 'Not
+      available'}}</h3>
+  </div>
+</div>
+<!-- Background Image block ends -->
+<div class="container z-depth-one-half main-margin-top">
+  <div class="row header-h3 row-margin header-background z-depth-1">
+    <h3>Overview</h3>
+  </div>
+  <div class="details-block">
+    <h4>Sustainable development goal</h4>
+    <div *ngIf="opportunityDetails?.sdg_info?.sdg_target?.description">
+      <h4>Quality Education</h4>
+      <div class="row">
+        <p class="col-xs-8">{{opportunityDetails?.sdg_info?.sdg_target?.description}}</p>
+      </div>
+    </div>
+    <h4>Role description</h4>
+    <div class="row">
+      <p class="col-xs-8">{{opportunityDetails?.description}}</p>
+    </div>
+
+    <h4>Main activities</h4>
+    <ul class="row">
+      <li *ngFor="let activity of opportunityDetails['role_info']['learning_points_list']">{{activity}}</li>
+    </ul>
+  </div>
+  <div class="row header-h3 row-margin header-background z-depth-1">
+    <h3>Prerequisites</h3>
+  </div>
+  <!-- Prerequisites block -->
+  <div class="details-block">
+    <div class="row" *ngFor="let detail of prerequisitesDetails">
+      <div class="col-xs-2"><strong>{{getKey(detail)}}</strong></div>
+      <div class="col-xs-6">
+        <div class="row" *ngIf="detail[getKey(detail)]['REQUIRED']">
+          <p><strong class="gray-text">REQUIRED</strong></p>
+          <p>{{detail[getKey(detail)]['REQUIRED']}}</p>
+        </div>
+        <div class="row" *ngIf="detail[getKey(detail)]['PREFERRED']">
+          <p><strong class="gray-text">PREFERRED</strong></p>
+          <p>{{detail[getKey(detail)]['PREFERRED']}}</p>
+        </div>
+        <div class="row" *ngIf="!(detail[getKey(detail)]['REQUIRED'] || detail[getKey(detail)]['PREFERRED'])">
+          <p>No preferences</p>
+        </div>
+        <div class="row">
+          <hr>
+        </div>
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-2"><strong>Study Levels</strong></div>
+      <div class="col-xs-6">
+        <div class="row">
+          <p>{{study_levels}}</p>
+        </div>
+        <div class="row">
+          <hr>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Prerequisites block ends -->
+
+  <div class="row header-h3 row-margin header-background z-depth-1">
+    <h3>Application details</h3>
+  </div>
+
+  <div class="details-block">
+    <div class="row">
+      <label class="col-xs-2">Salary : </label>
+      <span class="col-xs-6">{{opportunityDetails['specifics_info']['salary'] + ' per ' + opportunityDetails['specifics_info']['salary_periodicity']}}</span>
+    </div>
+
+    <div class="row">
+      <label class="col-xs-2">Start date : </label>
+      <span class="col-xs-6">{{getDate(opportunityDetails['earliest_start_date'])}}</span>
+    </div>
+
+    <div class="row">
+      <label class="col-xs-2">End date : </label>
+      <span class="col-xs-6">{{getDate(opportunityDetails['latest_end_date'])}}</span>
+    </div>
+
+    <div class="row">
+      <label class="col-xs-2">Close date : </label>
+      <span class="col-xs-6">{{getDate(opportunityDetails['applications_close_date'])}}</span>
+    </div>
+
+    <div class="row">
+      <label class="col-xs-2">Positions : </label>
+      <span class="col-xs-6">{{opportunityDetails['available_openings']}}</span>
+    </div>
+  </div>
+  <div class="row header-h3 row-margin header-background z-depth-1">
+    <h3>Visa and Logistics</h3>
+  </div>
+  <div class="details-block">
+    <h4>Selection Process</h4>
+    <div class="row">
+      <p class="col-xs-12">{{opportunityDetails['role_info']['selection_process']}}</p>
+      <div class="col-xs-8">
+        <hr>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-xs-2"><strong>Visa</strong></div>
+      <div class="col-xs-6">
+        <div class="row">
+          <p><strong class="gray-text">VISA TYPE</strong></p>
+          <p>{{opportunityDetails?.legal_info?.visa_type ? opportunityDetails?.legal_info?.visa_type : 'N/A'}}</p>
+        </div>
+        <div class="row">
+          <p><strong class="gray-text">VISA DURATION</strong></p>
+          <p>{{opportunityDetails?.legal_info?.visa_duration ? opportunityDetails?.legal_info?.visa_duration : 'N/A'}}</p>
+        </div>
+        <div class="row">
+          <p><strong class="gray-text">VISA LINK</strong></p>
+          <p>{{opportunityDetails?.legal_info?.visa_link ? opportunityDetails?.legal_info?.visa_link : 'N/A'}}</p>
+        </div>
+        <div class="row">
+          <hr>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="opportunityDetails?.legal_info?.health_insurance_info">
+      <div class="col-xs-2"><strong>Health Insurance</strong></div>
+      <div class="col-xs-6">
+        <div class="row">
+          <p>{{opportunityDetails?.legal_info?.health_insurance_info}}</p>
+        </div>
+        <div class="row">
+          <hr>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="footer-block z-depth-2">
+  <button type="button" class="btn btn-lg btn-custom z-depth-1 col-xs-offset-1 col-xs-2" (click)="editDetails(opportunityDetails['id'])">Edit</button>
+</div>

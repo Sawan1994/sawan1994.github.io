@@ -1,0 +1,139 @@
+<div style="margin-top:50px;">
+  <form class="form-horizontal" #editForm="ngForm">
+    <div class="form-group">
+      <label for="title" class="control-label col-xs-2">Title:</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" id="title" name="title" [(ngModel)]="opportunityDetails['title']" maxlength="100"
+          required #title="ngModel">
+      </div>
+      <div class="col-sm-4" *ngIf="title.invalid && (title.dirty || title.touched)">
+        <div class="form-control-static" *ngIf="title.errors['required']">Required</div>
+        <p class="form-control-static" *ngIf="title.errors['maxlength']">Length cannot be greater than 100</p>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="applications_close_date" class="control-label col-xs-2">Applications close date:</label>
+      <div class="col-sm-6">
+        <input type="date" class="form-control" id="applications_close_date" required name="applications_close_date" #applicationsCloseDate="ngModel" [(ngModel)]="opportunityDetails['applications_close_date']" [min]="minDate" [max]="maxDate">
+      </div>
+      <div class="col-sm-4" *ngIf="applicationsCloseDate.invalid && (applicationsCloseDate.dirty || applicationsCloseDate.touched)">
+        <div class="form-control-static" *ngIf="applicationsCloseDate.errors['required']">Required</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="earliest_start_date" class="control-label col-xs-2">Earliest start date:</label>
+      <div class="col-sm-6">
+        <input type="date" class="form-control" id="earliest_start_date" #earliestStartDate="ngModel" [(ngModel)]="opportunityDetails['earliest_start_date']" name="earliest_start_date" required>
+      </div>
+      <div class="col-sm-4" *ngIf="earliestStartDate.invalid && (earliestStartDate.dirty || earliestStartDate.touched)">
+        <div class="form-control-static" *ngIf="earliestStartDate.errors['required']">Required</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="latest_end_date" class="control-label col-xs-2">Latest end   date:</label>
+      <div class="col-sm-6">
+        <input type="date" class="form-control" id="latest_end_date" required #latestEndDate="ngModel" name="latest_end_date" [(ngModel)]="opportunityDetails['latest_end_date']">
+      </div>
+      <div class="col-sm-4" *ngIf="latestEndDate.invalid && (latestEndDate.dirty || latestEndDate.touched)">
+        <div class="form-control-static" *ngIf="latestEndDate.errors['required']">Required</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="description" class="control-label col-xs-2">Description:</label>
+      <div class="col-sm-6">
+        <textarea class="form-control" rows="5" id="description" required #description="ngModel" name="description" [(ngModel)]="opportunityDetails['description']"></textarea>
+      </div>
+      <div class="col-sm-4" *ngIf="description.invalid && (description.dirty || description.touched)">
+        <div class="form-control-static" *ngIf="description.errors['required']">Required</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="backgrounds" class="control-label col-xs-2">Backgrounds (required):</label>
+      <div class="col-sm-6">
+        <select class="form-control" id="backgroundsReq" name="backgroundsReq" [(ngModel)]="selectedBackgroundReq" (change)="getSelectedVal('required')" #backgroundsReq="ngModel" required>
+          <option *ngFor="let background of backgroundsList" [value]="background['id']+':'+background['name']">{{background['name']}}</option>
+        </select>
+        <span class="label label-info margin-label" #detail *ngFor="let data of opportunityDetails['backgrounds'];let i = index;"><span *ngIf="data['option'] === 'required'">{{data['name']}} <span class="glyphicon glyphicon-remove hover-del" (click)="deleteItem(i, 'backgrounds')"></span></span></span>
+      </div>
+      <div class="col-sm-4" *ngIf="flag || (backgroundsReq.invalid && (backgroundsReq.dirty || backgroundsReq.touched))">
+        <div class="form-control-static" *ngIf="backgroundsReq.errors['required']">Required</div>
+        <div class="form-control-static" *ngIf="flag">Backgrounds cannot be more than 3</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="backgrounds" class="control-label col-xs-2">Backgrounds (preferred):</label>
+      <div class="col-sm-6">
+        <select class="form-control" id="backgroundsPref" name="backgroundsPref" [(ngModel)]="selectedBackgroundPref" (change)="getSelectedVal('preferred')" #backgroundsPref="ngModel" required>
+          <option *ngFor="let background of backgroundsList" [value]="background['id']+':'+background['name']">{{background['name']}}</option>
+        </select>
+        <span class="label label-info margin-label" #detail *ngFor="let data of opportunityDetails['backgrounds'];let i = index;"><span *ngIf="data['option'] === 'preferred'">{{data['name']}} <span class="glyphicon glyphicon-remove hover-del" (click)="deleteItem(i, 'backgrounds')"></span></span></span>
+      </div>
+      <div class="col-sm-4" *ngIf="flag || (backgroundsPref.invalid && (backgroundsPref.dirty || backgroundsPref.touched))">
+        <div class="form-control-static" *ngIf="backgroundsPref.errors['required']">Required</div>
+        <div class="form-control-static" *ngIf="flag">Backgrounds cannot be more than 3</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="skills" class="control-label col-xs-2">Skills (required):</label>
+      <div class="col-sm-6">
+        <select class="form-control" id="skillsReq" name="skillsReq" [(ngModel)]="selectedSkillReq" (change)="getSelectedSkillVal('required')" #skillsReq="ngModel" required>
+          <option *ngFor="let skill of skillsList" [value]="skill['id']+':'+skill['name']">{{skill['name']}}</option>
+        </select>
+        <span class="label label-info margin-label" #detail *ngFor="let data of opportunityDetails['skills'];let i = index;"><span *ngIf="data['option'] === 'required'">{{data['name']}} <span class="glyphicon glyphicon-remove hover-del" (click)="deleteItem(i, 'skills')"></span></span></span>
+      </div>
+      <div class="col-sm-4" *ngIf="skillsReq.invalid && (skillsReq.dirty || skillsReq.touched)">
+        <div class="form-control-static" *ngIf="skillsReq.errors['required']">Required</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="skills" class="control-label col-xs-2">Skills (preferred):</label>
+      <div class="col-sm-6">
+        <select class="form-control" id="skillsPref" name="skillsPref" [(ngModel)]="selectedSkillPref" (change)="getSelectedSkillVal('preferred')" #skillsPref="ngModel" required>
+          <option *ngFor="let skill of skillsList" [value]="skill['id']+':'+skill['name']">{{skill['name']}}</option>
+        </select>
+        <span class="label label-info margin-label" #detail *ngFor="let data of opportunityDetails['skills'];let i = index;"><span *ngIf="data['option'] === 'preferred'">{{data['name']}} <span class="glyphicon glyphicon-remove hover-del" (click)="deleteItem(i, 'skills')"></span></span></span>
+      </div>
+      <div class="col-sm-4" *ngIf="skillsPref.invalid && (skillsPref.dirty || skillsPref.touched)">
+        <div class="form-control-static" *ngIf="skillsPref.errors['required']">Required</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="selection_process" class="control-label col-xs-2">Selection Process:</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" id="selection_process" #selectionProcess="ngModel" required name="selection_process"
+          [(ngModel)]="opportunityDetails['role_info']['selection_process']">
+      </div>
+      <div class="col-sm-4" *ngIf="selectionProcess.invalid && (selectionProcess.dirty || selectionProcess.touched)">
+        <div class="form-control-static" *ngIf="selectionProcess.errors['required']">Required</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="salary" class="control-label col-xs-2">Salary:</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" id="salary" required #salary="ngModel" name="salary" [(ngModel)]="opportunityDetails['specifics_info']['salary']">
+      </div>
+      <div class="col-sm-4" *ngIf="salary.invalid && (salary.dirty || salary.touched)">
+        <div class="form-control-static" *ngIf="salary.errors['required']">Required</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="city" class="control-label col-xs-2">City:</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control dropdown-toggle" id="city" required #city="ngModel" name="city" [(ngModel)]="opportunityDetails['role_info']['city']"
+          (keydown)="fetchAddress(cityDropdown)">
+        <ul class="dropdown-menu" #cityDropdown>
+          <!-- dropdown menu links -->
+          <li *ngFor="let city of cities" (click)="showDropdown(cityDropdown,city['description'])">{{city['description']}}</li>
+        </ul>
+      </div>
+      <div class="col-sm-4" *ngIf="city.invalid && (city.dirty || city.touched)">
+        <div class="form-control-static" *ngIf="city.errors['required']">Required</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-6">
+        <button type="submit" class="btn btn-primary" (click)="updateOpportunity();">Submit</button>
+      </div>
+    </div>
+  </form>
+</div>
